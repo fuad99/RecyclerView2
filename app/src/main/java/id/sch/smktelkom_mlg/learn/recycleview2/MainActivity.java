@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         assert recyclerView != null;
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new HotelAdapter(mList);
@@ -43,12 +44,8 @@ public class MainActivity extends AppCompatActivity {
         Drawable[] arFoto = new Drawable[a.length()];
 
         for (int i = 0; i < arFoto.length; i++) {
-            BitmapDrawable bd = (BitmapDrawable) a.getDrawable(i);
-            RoundedBitmapDrawable rbd = RoundedBitmapDrawableFactory.create(getResources(), bd.getBitmap());
-            rbd.setCircular(true);
-            arFoto[i] = rbd;
+            arFoto[i] = a.getDrawable(i);
         }
-        a.recycle();
 
         for (int i = 0; i < arJudul.length; i++) {
             mList.add(new Hotel(arJudul[i], arDeskripsi[i], arFoto[i]));
